@@ -1,0 +1,17 @@
+{
+  "name": "WeatherStation",
+  "version": "1.0.0",
+  "main": "app.js",
+  "repository": "https://github.com/mikrokontroller-klub/WeatherStation.git",
+  "author": "kostyal.balint@icloud.com",
+  "license": "MIT",
+  "scripts": {
+    "start": "node app.js",
+    "inspect": "node --inspect index.js"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "express": "^4.17.1",
+    "prettier": "^2.4.1"
+  }
+}
