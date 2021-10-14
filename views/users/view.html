@@ -71,10 +71,11 @@ Coded by www.creative-tim.com
                         </li>
                         <li class="align-self-end">
                             <hr class="w-75" />
-                            <a href="/login">
+                            <a onclick="document.getElementById('logoutForm').submit();">
                                 <i class="nc-icon nc-user-run"></i>
                                 <p>Log out</p>
                             </a>
+                            <form action="/logout" method="post" id="logoutForm"></form>
                         </li>
                     </ul>
                 </div>

@@ -12,8 +12,10 @@
     "sass": "sass styles/paper-dashboard.scss:public/css/paper-dashboard.css"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
     "chalk": "^4.1.2",
     "express": "^4.17.1",
+    "express-session": "^1.17.2",
     "nodemon": "^2.0.12"
   },
   "devDependencies": {
