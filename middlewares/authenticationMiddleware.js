@@ -3,7 +3,6 @@
  */
 
 exports.authenticationMiddleware = async (req, res, next) => {
-    console.log('Auth middleware');
     if (req.session && req.session.loggedin) {
         return next();
     } else {

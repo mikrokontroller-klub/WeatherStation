@@ -1,25 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const session = require('express-session');
 const bodyParser = require('body-parser');
 const { authenticationMiddleware } = require('../middlewares/authenticationMiddleware');
 const { loginController } = require('../controllers/loginController');
-const path = require('path');
-const { log } = require('nodemon/lib/utils');
+const { homeController } = require('../controllers/homeController');
+const { userController } = require('../controllers/userController');
+const { sensorController } = require('../controllers/sensorController');
 
 /**
  * @description This contains regular application routes
  */
 
-router.use(
-    session({
-        secret: 'secret', //TODO: Read secret from .env file
-        resave: true,
-        saveUninitialized: true,
-        //cookie: { secure: true },
-    })
-);
 router.use(bodyParser.urlencoded({ extended: true }));
+
+/**
+ * Authenticate routes
+ */
 
 //Show login form
 router.get('/login', loginController.index);
@@ -32,40 +28,44 @@ router.post('/logout', loginController.logout);
 
 router.use(authenticationMiddleware);
 
-router.get('/home', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/home.html'));
-});
+//Show home dashboard
+router.get('/home', homeController.index);
 
-router.get('/sensors', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/sensors/index.html'));
-});
+/**
+ * Sensors CRUD
+ */
 
-router.get('/sensors/new', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/sensors/new.html'));
-});
+//Show sensors page - all sensor
+router.get('/sensors', sensorController.index);
 
-router.get('/sensors/:id/edit', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/sensors/edit.html'));
-});
+//CREATE - Sensors
+router.get('/sensors/new'); //Show the form
+router.put('/sensors/new'); //Process data from form
 
-router.get('/sensors/:id', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/sensors/view.html'));
-});
+//UPDATE - Sensors
+router.get('/sensors/:id/edit', sensorController.edit); //Show the form
+router.put('/sensors/:id/edit'); //Process data from from
 
-router.get('/users', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/users/index.html'));
-});
+//READ - Sensors
+router.get('/sensors/:id', sensorController.view);
 
-router.get('/users/new', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/users/new.html'));
-});
+//DELETE - Sensors
+router.delete('/sensors/:id', sensorController.destroy);
 
-router.get('/users/:id/edit', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/users/edit.html'));
-});
+/**
+ * Users CRUD
+ */
 
-router.get('/users/:id', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/users/view.html'));
-});
+//Show users page - all users
+router.get('/users', userController.index);
+
+//Show user create form
+router.get('/users/new', userController.create);
+
+//Show user edit form
+router.get('/users/:id/edit', userController.edit);
+
+//Show user data by id
+router.get('/users/:id', userController.show);
 
 exports.routes = router;

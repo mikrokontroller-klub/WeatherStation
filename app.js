@@ -1,10 +1,19 @@
 const express = require('express');
 const chalk = require('chalk');
-const path = require('path');
 const { routes } = require('./routers/routes');
+const session = require('express-session');
 const app = express();
 
 app.use(express.static('public'));
+
+app.use(
+    session({
+        secret: 'secret', //TODO: Read secret from .env file
+        resave: true,
+        saveUninitialized: true,
+        //cookie: { secure: true },
+    })
+);
 
 //TODO: Move to controller
 app.get('/', (req, res) => {
