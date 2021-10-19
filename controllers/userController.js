@@ -3,7 +3,7 @@ const path = require('path');
  * @description Resourceful controller for the users
  */
 exports.userController = {
-    /**Display a listing of the resource.*/
+    /** Display a listing of the resource.*/
     index: async (req, res) => {
         res.sendFile(path.join(__dirname, '../views/users/index.html'));
     },
@@ -14,7 +14,9 @@ exports.userController = {
     },
 
     /** Store a newly created resource in storage.*/
-    store: async (req, res) => {},
+    store: async (req, res) => {
+        //TODO: Save sensor into DB
+    },
 
     /** Display the specified resource.*/
     show: async (req, res) => {
@@ -27,8 +29,12 @@ exports.userController = {
     },
 
     /** Update the specified resource in storage.*/
-    update: async (req, res) => {},
+    update: async (req, res) => {
+        //TODO: Update sensor in DB
+    },
 
     /** Remove the specified resource from storage.*/
-    destroy: async (req, res) => {},
+    destroy: async (req, res) => {
+        //TODO: Remove sensor from DB
+    },
 };

@@ -47,7 +47,7 @@ router.get('/sensors/:id/edit', sensorController.edit); //Show the form
 router.put('/sensors/:id/edit'); //Process data from from
 
 //READ - Sensors
-router.get('/sensors/:id', sensorController.view);
+router.get('/sensors/:id', sensorController.show);
 
 //DELETE - Sensors
 router.delete('/sensors/:id', sensorController.destroy);

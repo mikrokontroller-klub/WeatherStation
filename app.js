@@ -2,6 +2,7 @@ const express = require('express');
 const chalk = require('chalk');
 const { routes } = require('./routers/routes');
 const session = require('express-session');
+const { baseController } = require('./controllers/baseController');
 const app = express();
 
 app.use(express.static('public'));
@@ -15,14 +16,7 @@ app.use(
     })
 );
 
-//TODO: Move to controller
-app.get('/', (req, res) => {
-    if (req.session && req.session.loggedin) {
-        res.redirect('/home');
-    } else {
-        res.redirect('/login');
-    }
-});
+app.get('/', baseController.index);
 
 /**
  * General purpose application routes

@@ -2,12 +2,12 @@ const path = require('path');
 const chalk = require('chalk');
 
 exports.loginController = {
-    //Show the login form to the user
+    /** Display a listing of the resource. */
     index: async (req, res) => {
         //TODO: Change to ejs
         res.sendFile(path.join(__dirname, '../views/login.html'));
     },
-    //Handle login logic
+    /** Handle login logic */
     login: async (req, res) => {
         const username = req.body.username;
         const password = req.body.password;
@@ -32,10 +32,10 @@ exports.loginController = {
             res.redirect('/login');
         }
     },
-
+    /** Handle logout logic */
     logout: async (req, res) => {
         if (req.session) {
-            console.log(chalk.green('[Loged out]: '), req.session.username);
+            console.log(chalk.green('[Logged out]: '), req.session.username);
             req.session.destroy((err) => {
                 if (err) {
                     //TODO: Send status in redirect
