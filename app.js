@@ -1,6 +1,7 @@
 const express = require('express');
 const chalk = require('chalk');
 const { routes } = require('./routers/routes');
+const { apiRoutes } = require('./routers/routesApi');
 const session = require('express-session');
 const { baseController } = require('./controllers/baseController');
 const app = express();
@@ -22,6 +23,8 @@ app.get('/', baseController.index);
  * General purpose application routes
  */
 app.use(routes);
+
+app.use('/api', apiRoutes);
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {

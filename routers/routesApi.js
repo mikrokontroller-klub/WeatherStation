@@ -1,8 +1,11 @@
 const express = require('express');
+const { measurementController } = require('../controllers/measurementController');
 const router = express.Router();
 
 /**
  * @description This contains API routes
  */
 
-exports.router = router;
+router.put('/measurement/new', measurementController.create);
+
+exports.apiRoutes = router;
