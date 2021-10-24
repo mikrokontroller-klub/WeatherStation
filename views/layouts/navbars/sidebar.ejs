@@ -1,0 +1,50 @@
+
+<div class="sidebar" data-color="white" data-active-color="danger">
+    <div class="logo">
+        <a href="/home" class="simple-text text-center logo-normal"> Weather Station </a>
+    </div>
+    <div class="logo">
+        <a href="https://www.creative-tim.com" class="simple-text logo-mini">
+            <div class="logo-image-small">
+                <img src="https://avatars.dicebear.com/api/pixel-art/kostyalbalint.svg" />
+            </div>
+            <!-- <p>CT</p> -->
+        </a>
+        <a href="javascript:;" class="simple-text logo-normal">
+            Kostyál Bálint
+            <!-- <div class="logo-image-big">
+<img src="./img/logo-big.png">
+</div> -->
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li class="active">
+                <a href="/home">
+                    <i class="nc-icon nc-bank"></i>
+                    <p>Home</p>
+                </a>
+            </li>
+            <li>
+                <a href="/sensors">
+                    <i class="nc-icon nc-settings-gear-65"></i>
+                    <p>Sensors</p>
+                </a>
+            </li>
+            <li>
+                <a href="/users">
+                    <i class="nc-icon nc-user-run"></i>
+                    <p>Users</p>
+                </a>
+            </li>
+            <li class="align-self-end">
+                <hr class="w-75" />
+                <a onclick="document.getElementById('logoutForm').submit();">
+                    <i class="nc-icon nc-user-run"></i>
+                    <p>Log out</p>
+                </a>
+                <form action="/logout" method="post" id="logoutForm"></form>
+            </li>
+        </ul>
+    </div>
+</div>
