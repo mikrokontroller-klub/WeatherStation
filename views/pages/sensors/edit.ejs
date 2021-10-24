@@ -1,0 +1,85 @@
+<%- contentFor('content') %>
+<div class="row">
+    <div class="col col-lg-12">
+        <div class="card card-user">
+            <div class="card-header">
+                <h4 class="card-title text-center">Edit sensor</h4>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" class="form-control" value="My temperature sensor" />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Type</label>
+                                <select class="custom-select" id="inputGroupSelect02">
+                                    <option>Sensor Type...</option>
+                                    <option selected value="1">Temperature</option>
+                                    <option value="2">Humidity</option>
+                                    <option value="3">Pressure</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2 mb-3">
+                        <div class="col-12">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" value="" checked />
+                                    Show last measurement
+                                    <span class="form-check-sign">
+                                        <span class="check"></span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" value="" />
+                                    Show graph
+                                    <span class="form-check-sign">
+                                        <span class="check"></span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Latitude</label>
+                                <input type="number" class="form-control" value="43.345342" />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Longitude</label>
+                                <input type="number" class="form-control" value="56.234545" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea class="form-control textarea" placeholder="Sensor description">Inside Sensor</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="/sensors" class="btn btn-success">Save</a>
+                            <a href="/sensors" class="btn btn-danger">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

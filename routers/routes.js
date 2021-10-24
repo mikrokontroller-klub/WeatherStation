@@ -39,7 +39,7 @@ router.get('/home', homeController.index);
 router.get('/sensors', sensorController.index);
 
 //CREATE - Sensors
-router.get('/sensors/new'); //Show the form
+router.get('/sensors/new', sensorController.create); //Show the form
 router.put('/sensors/new'); //Process data from form
 
 //UPDATE - Sensors

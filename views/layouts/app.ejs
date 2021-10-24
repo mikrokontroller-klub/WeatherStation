@@ -28,6 +28,8 @@ Coded by www.creative-tim.com
     <!-- CSS Files -->
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/css/paper-dashboard.css?v=2.0.1" rel="stylesheet"/>
+
+    <%- defineContent('css') %>
 </head>
 
 <body class="">
@@ -39,7 +41,7 @@ Coded by www.creative-tim.com
     <div class="main-panel" style="height: 100vh">
         <div class="content">
             <!-- MAIN CONTENT -->
-            <%- content %>
+            <%- defineContent('content') %>
         </div>
         <!-- FOOTER -->
         <%- include('footer'); %>
@@ -59,5 +61,6 @@ Coded by www.creative-tim.com
 
 <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script>
+<%- defineContent('js') %>
 </body>
 </html>

@@ -1,0 +1,61 @@
+<%- contentFor('content') %>
+<div class="row">
+    <div class="col col-lg-12">
+        <div class="card card-user">
+            <div class="card-header">
+                <h4 class="card-title text-center">Add new sensor</h4>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Type</label>
+                                <select class="custom-select" id="inputGroupSelect02">
+                                    <option selected>Sensor Type...</option>
+                                    <option value="1">Temperature</option>
+                                    <option value="2">Humidity</option>
+                                    <option value="3">Pressure</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <lable>Latitude</lable>
+                                <input type="number" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <lable>Longitude</lable>
+                                <input type="number" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <lable>Description</lable>
+                                <textarea class="form-control textarea" placeholder="Sensor description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="/sensors" class="btn btn-success">Save</a>
+                            <a href="/sensors" class="btn btn-danger">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

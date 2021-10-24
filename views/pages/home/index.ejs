@@ -1,2 +1,281 @@
 <%- contentFor('content') %>
-<h1>Hello Home Page</h1>
+
+<div class="row">
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-5 col-md-4">
+                        <div class="icon-big text-center icon-warning">
+                            <i class="nc-icon nc-globe text-warning"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 col-md-8">
+                        <div class="numbers">
+                            <p class="card-category">Temperature</p>
+                            <p class="card-title">12.34 C°</p>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <hr />
+                <div class="stats">
+                    <i class="fa fa-clock-o"></i>
+                    Last updated: 2 minutes ago
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-5 col-md-4">
+                        <div class="icon-big text-center icon-warning">
+                            <i class="nc-icon nc-globe text-success"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 col-md-8">
+                        <div class="numbers">
+                            <p class="card-category">Humidity</p>
+                            <p class="card-title">83.20 %</p>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <hr />
+                <div class="stats">
+                    <i class="fa fa-clock-o"></i>
+                    Last updated: 3 minutes ago
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-5 col-md-4">
+                        <div class="icon-big text-center icon-warning">
+                            <i class="nc-icon nc-globe text-info"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 col-md-8">
+                        <div class="numbers">
+                            <p class="card-category">Pressure</p>
+                            <p class="card-title">1054.32 hPa</p>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <hr />
+                <div class="stats">
+                    <i class="fa fa-clock-o"></i>
+                    Last updated: 2 minutes ago
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <div class="numbers pull-left">My Temperature Sensor</div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="pull-right">
+                            <span class="badge badge-pill badge-success"> +18% </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <canvas id="temp-chart-1"></canvas>
+            </div>
+            <div class="card-footer">
+                <hr />
+                <div class="row">
+                    <div class="col-sm-7">
+                        <div class="footer-title">Last 7 days</div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="pull-right">
+                            <button class="btn btn-success btn-sm">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <div class="numbers pull-left">My Humidty Sensor</div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="pull-right">
+                            <span class="badge badge-pill badge-danger"> 83.20 % </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <canvas id="humdity-chart-1"></canvas>
+            </div>
+            <div class="card-footer">
+                <hr />
+                <div class="row">
+                    <div class="col-sm-7">
+                        <div class="footer-title">Last 10 days</div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="pull-right">
+                            <button class="btn btn-danger btn-sm">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('js') %>
+<script>
+    chartColor = '#FFFFFF';
+
+    ctx = document.getElementById('temp-chart-1').getContext('2d');
+
+    myChart = new Chart(ctx, {
+        type: 'line',
+
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+            datasets: [
+                {
+                    borderColor: '#6bd098',
+                    backgroundColor: 'transparent',
+                    pointRadius: 0,
+                    pointHoverRadius: 0,
+                    borderWidth: 3,
+                    data: [30, 31, 31, 32, 33, 32, 33, 34, 33, 35],
+                },
+            ],
+        },
+        options: {
+            legend: {
+                display: false,
+            },
+
+            tooltips: {
+                enabled: true,
+            },
+
+            scales: {
+                yAxes: [
+                    {
+                        ticks: {
+                            fontColor: '#9f9f9f',
+                            beginAtZero: false,
+                            maxTicksLimit: 5,
+                            //padding: 20
+                        },
+                        gridLines: {
+                            drawBorder: false,
+                            zeroLineColor: '#ccc',
+                            color: 'rgba(255,255,255,0.05)',
+                        },
+                    },
+                ],
+
+                xAxes: [
+                    {
+                        barPercentage: 1.6,
+                        gridLines: {
+                            drawBorder: true,
+                            color: 'rgba(255,255,255,0.1)',
+                            display: true,
+                        },
+                        ticks: {
+                            padding: 20,
+                            fontColor: '#9f9f9f',
+                        },
+                    },
+                ],
+            },
+        },
+    });
+
+    ctx = document.getElementById('humdity-chart-1').getContext('2d');
+
+    myChart = new Chart(ctx, {
+        type: 'line',
+
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+            datasets: [
+                {
+                    borderColor: '#ef8157',
+                    backgroundColor: 'transparent',
+                    pointRadius: 0,
+                    pointHoverRadius: 0,
+                    borderWidth: 3,
+                    data: [30, 31, 31, 32, 33, 32, 33, 34, 33, 35],
+                },
+            ],
+        },
+        options: {
+            legend: {
+                display: false,
+            },
+
+            tooltips: {
+                enabled: true,
+            },
+
+            scales: {
+                yAxes: [
+                    {
+                        ticks: {
+                            fontColor: '#9f9f9f',
+                            beginAtZero: false,
+                            maxTicksLimit: 5,
+                            //padding: 20
+                        },
+                        gridLines: {
+                            drawBorder: false,
+                            zeroLineColor: '#ccc',
+                            color: 'rgba(255,255,255,0.05)',
+                        },
+                    },
+                ],
+
+                xAxes: [
+                    {
+                        barPercentage: 1.6,
+                        gridLines: {
+                            drawBorder: true,
+                            color: 'rgba(255,255,255,0.1)',
+                            display: true,
+                        },
+                        ticks: {
+                            padding: 20,
+                            fontColor: '#9f9f9f',
+                        },
+                    },
+                ],
+            },
+        },
+    });
+</script>

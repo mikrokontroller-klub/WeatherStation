@@ -5,11 +5,11 @@ const path = require('path');
 exports.sensorController = {
     /** Display a listing of the resource. */
     index: async (req, res) => {
-        res.sendFile(path.join(__dirname, '../views/sensors/index.html'));
+        res.render('pages/sensors/index');
     },
     /** Show the form for creating a new resource. */
     create: async (req, res) => {
-        res.sendFile(path.join(__dirname, '../views/sensors/new.html'));
+        res.render('pages/sensors/new');
     },
     /** Store a newly created resource in storage. */
     store: async (req, res) => {
@@ -17,11 +17,11 @@ exports.sensorController = {
     },
     /** Display the specified resource. */
     show: async (req, res) => {
-        res.sendFile(path.join(__dirname, '../views/sensors/view.html'));
+        res.render('pages/sensors/view');
     },
     /** Show the form for editing the specified resource. */
     edit: async (req, res) => {
-        res.sendFile(path.join(__dirname, '../views/sensors/edit.html'));
+        res.render('pages/sensors/edit');
     },
     /** Update the specified resource in storage. */
     update: async (req, res) => {
