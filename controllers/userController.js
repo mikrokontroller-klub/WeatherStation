@@ -5,12 +5,12 @@ const path = require('path');
 exports.userController = {
     /** Display a listing of the resource.*/
     index: async (req, res) => {
-        res.sendFile(path.join(__dirname, '../views/users/index.ejs'));
+        res.render('pages/users/index');
     },
 
     /** Show the form for creating a new resource.*/
     create: async (req, res) => {
-        res.sendFile(path.join(__dirname, '../views/users/new.ejs'));
+        res.render('pages/users/new');
     },
 
     /** Store a newly created resource in storage.*/
@@ -20,12 +20,12 @@ exports.userController = {
 
     /** Display the specified resource.*/
     show: async (req, res) => {
-        res.sendFile(path.join(__dirname, '../views/users/view.ejs'));
+        res.render('pages/users/view');
     },
 
     /** Show the form for editing the specified resource.*/
     edit: async (req, res) => {
-        res.sendFile(path.join(__dirname, '../views/users/edit.ejs'));
+        res.render('pages/users/edit');
     },
 
     /** Update the specified resource in storage.*/

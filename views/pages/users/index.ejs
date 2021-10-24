@@ -1,0 +1,49 @@
+<%- contentFor('content') %>
+<div class="row">
+    <div class="col col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title text-center">Users</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="text-primary">
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>01</td>
+                                        <td>Kostyál Bálint</td>
+                                        <td class="text-right">
+                                            <a href="/users/1" class="btn btn-success btn-sm m-1">View</a>
+                                            <a href="/users/1/edit" class="btn btn-info btn-sm m-1">Edit</a>
+                                            <a href="javascript:;" class="btn btn-danger btn-sm m-1">Delete</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>02</td>
+                                        <td>Gipsz Jakab</td>
+                                        <td class="text-right">
+                                            <a href="/users/2" class="btn btn-success btn-sm m-1">View</a>
+                                            <a href="/users/2/edit" class="btn btn-info btn-sm m-1">Edit</a>
+                                            <a href="javascript:;" class="btn btn-danger btn-sm m-1">Delete</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-end">
+                                <a href="/users/new" class="btn btn-success mr-4">Add New</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

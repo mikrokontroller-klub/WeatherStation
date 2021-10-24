@@ -1,0 +1,33 @@
+<%- contentFor('content') %>
+<div class="row">
+    <div class="col col-lg-12">
+        <div class="card card-user">
+            <div class="card-header">
+                <h4 class="card-title text-center">Add new user</h4>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" class="form-control" value="" placeholder="Username" />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="/users" class="btn btn-success">Save</a>
+                            <a href="/users" class="btn btn-danger">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
