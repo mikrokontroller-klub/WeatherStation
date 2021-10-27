@@ -11,12 +11,12 @@
                         <div class="col-12 col-lg-6">
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" class="form-control" value="Kostyál Bálint" />
+                                <input type="text" class="form-control" value="<%= user.name %>" />
                             </div>
 
                             <div class="form-group">
                                 <label>Password</label>
-                                <input type="password" class="form-control" value="secret-pass" />
+                                <input type="password" class="form-control" value="" />
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
@@ -36,3 +36,19 @@
         </div>
     </div>
 </div>
+
+<%- contentFor('js') %>
+<script>
+    $.fn.extend({
+        toggleText: function (a, b) {
+            return this.text(this.text() == b ? a : b);
+        },
+    });
+
+    $('#api-token-btn').on('click', () => {
+        $('#api-token-btn').toggleClass('btn-success');
+        $('#api-token-btn').toggleClass('btn-danger');
+        $('#api-token-btn').toggleText('Show', 'Hide');
+        $('#api-token').toggleText('*************', '<%= user.apiToken %>');
+    });
+</script>

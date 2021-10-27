@@ -17,24 +17,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <% users.forEach(user => { %>
                                     <tr>
-                                        <td>01</td>
-                                        <td>Kostyál Bálint</td>
+                                        <td><%= user.id %></td>
+                                        <td><%= user.name %></td>
                                         <td class="text-right">
-                                            <a href="/users/1" class="btn btn-success btn-sm m-1">View</a>
-                                            <a href="/users/1/edit" class="btn btn-info btn-sm m-1">Edit</a>
+                                            <a href="/users/<%= user.id %>" class="btn btn-success btn-sm m-1">View</a>
+                                            <a href="/users/<%= user.id %>/edit" class="btn btn-info btn-sm m-1">Edit</a>
                                             <a href="javascript:;" class="btn btn-danger btn-sm m-1">Delete</a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>02</td>
-                                        <td>Gipsz Jakab</td>
-                                        <td class="text-right">
-                                            <a href="/users/2" class="btn btn-success btn-sm m-1">View</a>
-                                            <a href="/users/2/edit" class="btn btn-info btn-sm m-1">Edit</a>
-                                            <a href="javascript:;" class="btn btn-danger btn-sm m-1">Delete</a>
-                                        </td>
-                                    </tr>
+                                <% })%>
                                 </tbody>
                             </table>
                             <div class="d-flex justify-content-end">

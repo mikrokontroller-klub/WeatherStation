@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-12 col-md-3 d-flex flex-column justify-content-center">
                         <img src="https://avatars.dicebear.com/api/pixel-art/kostyalbalint.svg" alt="avatar" class="ml-3 mr-3" />
-                        <h3 class="mt-3 text-center">Kostyál Bálint</h3>
+                        <h3 class="mt-3 text-center"><%= user.name %></h3>
                     </div>
                     <div class="col-12 col-md-6">
                         <a href="javascript:;" class="btn btn-info">Generate API token</a>
@@ -21,3 +21,19 @@
         </div>
     </div>
 </div>
+
+<%- contentFor('js') %>
+<script>
+    $.fn.extend({
+        toggleText: function (a, b) {
+            return this.text(this.text() == b ? a : b);
+        },
+    });
+
+    $('#api-token-btn').on('click', () => {
+        $('#api-token-btn').toggleClass('btn-success');
+        $('#api-token-btn').toggleClass('btn-danger');
+        $('#api-token-btn').toggleText('Show', 'Hide');
+        $('#api-token').toggleText('*************', '<%= user.apiToken %>');
+    });
+</script>
