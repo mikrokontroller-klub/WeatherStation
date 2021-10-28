@@ -11,7 +11,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" class="form-control" value="My temperature sensor" />
+                                <input type="text" class="form-control" value="<%= sensor.name %>" />
                             </div>
                         </div>
                         <div class="col-6">
@@ -30,7 +30,7 @@
                         <div class="col-12">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" checked />
+                                    <input class="form-check-input" type="checkbox" value="" <%= sensor.showLastMeasurement ? "checked" : ""%> />
                                     Show last measurement
                                     <span class="form-check-sign">
                                         <span class="check"></span>
@@ -41,7 +41,7 @@
                         <div class="col-12">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" />
+                                    <input class="form-check-input" type="checkbox" value="" <%= sensor.showGraph ? "checked" : ""%>/>
                                     Show graph
                                     <span class="form-check-sign">
                                         <span class="check"></span>
@@ -54,13 +54,13 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Latitude</label>
-                                <input type="number" class="form-control" value="43.345342" />
+                                <input type="number" class="form-control" value="<%= sensor.coordinate.latitude %>" />
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Longitude</label>
-                                <input type="number" class="form-control" value="56.234545" />
+                                <input type="number" class="form-control" value="<%= sensor.coordinate.longitude %>" />
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label>Description</label>
-                                <textarea class="form-control textarea" placeholder="Sensor description">Inside Sensor</textarea>
+                                <textarea class="form-control textarea" placeholder="Sensor description"><%= sensor.description %></textarea>
                             </div>
                         </div>
                     </div>

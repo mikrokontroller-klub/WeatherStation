@@ -11,8 +11,7 @@
                         <div class="ml-3 mr-3">
                             <h4 class="text-secondary">Description</h4>
                             <p class="text-secondary">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad amet aspernatur, autem cupiditate delectus dolore enim fugiat harum inventore maxime molestiae nemo non porro qui quod ratione
-                                ut vel voluptatum.
+                                <%= sensor.description %>
                             </p>
                         </div>
                     </div>
@@ -25,7 +24,7 @@
                                 style="border: 0; position: absolute"
                                 loading="lazy"
                                 allowfullscreen
-                                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBvza2p5YhimD9H7ObYa4GJf4U4_v7S72M&q=Space+Needle,BME"
+                                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBvza2p5YhimD9H7ObYa4GJf4U4_v7S72M&q=<%= sensor.coordinate.latitude + "+" + sensor.coordinate.longitude %>"
                             >
                             </iframe>
                         </div>

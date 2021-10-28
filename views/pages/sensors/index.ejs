@@ -17,39 +17,19 @@
                             </tr>
                         </thead>
                         <tbody>
+                        <% sensors.forEach(sensor => { %>
                             <tr>
-                                <td>01</td>
-                                <td>My Temperature Sensor</td>
-                                <td>Temperature</td>
-                                <td>Inside Sensor</td>
+                                <td><%= sensor.id %></td>
+                                <td><%= sensor.name %></td>
+                                <td><%= sensor.type %></td>
+                                <td><%= sensor.description %></td>
                                 <td class="text-right">
-                                    <a href="/sensors/1" class="btn btn-success btn-sm m-1">View</a>
-                                    <a href="/sensors/1/edit" class="btn btn-info btn-sm m-1">Edit</a>
+                                    <a href="/sensors/<%=sensor.id%>" class="btn btn-success btn-sm m-1">View</a>
+                                    <a href="/sensors/<%=sensor.id%>/edit" class="btn btn-info btn-sm m-1">Edit</a>
                                     <a href="javascript:;" class="btn btn-danger btn-sm m-1">Delete</a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>02</td>
-                                <td>My Humidity Sensor</td>
-                                <td>Humidity</td>
-                                <td></td>
-                                <td class="text-right">
-                                    <a href="/sensors/2" class="btn btn-success btn-sm m-1">View</a>
-                                    <a href="/sensors/2/edit" class="btn btn-info btn-sm m-1">Edit</a>
-                                    <a href="javascript:;" class="btn btn-danger btn-sm m-1">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>03</td>
-                                <td>My Pressure Sensor</td>
-                                <td>Pressure</td>
-                                <td>On the roof ...</td>
-                                <td class="text-right">
-                                    <a href="/sensors/3" class="btn btn-success btn-sm m-1">View</a>
-                                    <a href="/sensors/3/edit" class="btn btn-info btn-sm m-1">Edit</a>
-                                    <a href="javascript:;" class="btn btn-danger btn-sm m-1">Delete</a>
-                                </td>
-                            </tr>
+                        <% }) %>
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-end">

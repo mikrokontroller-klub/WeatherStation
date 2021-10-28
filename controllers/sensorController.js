@@ -4,7 +4,27 @@
 exports.sensorController = {
     /** Display a listing of the resource. */
     index: async (req, res) => {
-        res.render('pages/sensors/index', { activePage: 'sensors' });
+        let sensors = [
+            {
+                id: 1,
+                name: 'My Temperature Sensor',
+                type: 'Temperature',
+                description: 'Inside Sensor',
+            },
+            {
+                id: 2,
+                name: 'My Humidity Sensor',
+                type: 'Humidity',
+                description: '',
+            },
+            {
+                id: 3,
+                name: 'My Pressure Sensor',
+                type: 'Pressure',
+                description: 'On the roof ',
+            },
+        ];
+        res.render('pages/sensors/index', { activePage: 'sensors', sensors });
     },
 
     /** Show the form for creating a new resource. */
@@ -19,12 +39,36 @@ exports.sensorController = {
 
     /** Display the specified resource. */
     show: async (req, res) => {
-        res.render('pages/sensors/view', { activePage: 'sensors' });
+        let sensor = {
+            id: 1,
+            name: 'My Temperature Sensor',
+            type: 'Temperature',
+            description: 'Inside Sensor',
+            showLastMeasurement: true,
+            showGraph: true,
+            coordinate: {
+                latitude: 47.473118115829706,
+                longitude: 19.0533464181153,
+            },
+        };
+        res.render('pages/sensors/view', { activePage: 'sensors', sensor });
     },
 
     /** Show the form for editing the specified resource. */
     edit: async (req, res) => {
-        res.render('pages/sensors/edit', { activePage: 'sensors' });
+        let sensor = {
+            id: 1,
+            name: 'My Temperature Sensor',
+            type: 'Temperature',
+            description: 'Inside Sensor',
+            showLastMeasurement: true,
+            showGraph: true,
+            coordinate: {
+                latitude: 47.473118115829706,
+                longitude: 19.0533464181153,
+            },
+        };
+        res.render('pages/sensors/edit', { activePage: 'sensors', sensor });
     },
 
     /** Update the specified resource in storage. */
