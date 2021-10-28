@@ -46,9 +46,14 @@ exports.sensorController = {
             description: 'Inside Sensor',
             showLastMeasurement: true,
             showGraph: true,
+            color: 'info',
             coordinate: {
                 latitude: 47.473118115829706,
                 longitude: 19.0533464181153,
+            },
+            measurements: {
+                data: Array.from({ length: 20 }, () => Math.floor(Math.random() * 40)),
+                labels: Array.from({ length: 20 }, () => Math.floor(Math.random() * 40)),
             },
         };
         res.render('pages/sensors/view', { activePage: 'sensors', sensor });
