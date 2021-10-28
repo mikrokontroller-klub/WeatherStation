@@ -6,7 +6,7 @@
   "author": "kostyal.balint@icloud.com",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --watch app.js",
+    "dev": "nodemon --watch",
     "start": "node app.js",
     "inspect": "node --inspect index.js",
     "sass": "sass styles/paper-dashboard.scss:public/css/paper-dashboard.css"
