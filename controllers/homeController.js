@@ -45,8 +45,8 @@ exports.homeController = {
                 type: 'Humidty',
                 color: 'info',
                 measurements: {
-                    data: Array.from({ length: 20 }, () => Math.floor(Math.random() * 40)),
-                    labels: Array.from({ length: 20 }, () => Math.floor(Math.random() * 40)),
+                    data: Array.from({ length: 20 }, () => Math.floor(Math.random() * 40)).sort((a, b) => a - b),
+                    labels: Array.from({ length: 20 }, () => Math.floor(Math.random() * 40)).sort((a, b) => a - b),
                 },
             },
             {
@@ -55,8 +55,8 @@ exports.homeController = {
                 type: 'Pressure',
                 color: 'danger',
                 measurements: {
-                    data: Array.from({ length: 20 }, () => Math.floor(Math.random() * 40)),
-                    labels: Array.from({ length: 20 }, () => Math.floor(Math.random() * 40)),
+                    data: Array.from({ length: 20 }, () => Math.floor(Math.random() * 40)).sort((a, b) => a - b),
+                    labels: Array.from({ length: 20 }, () => Math.floor(Math.random() * 40)).sort((a, b) => a - b),
                 },
             },
         ];
