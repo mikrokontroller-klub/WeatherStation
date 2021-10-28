@@ -5294,4 +5294,13 @@ License - nucleoapp.com/license/
   /* 4:3 */
 }
 
+:root {
+  --primary: #51cbce;
+  --success: #6bd098;
+  --info: #51bcda;
+  --warning: #fbc658;
+  --danger: #ef8157;
+  --purple: #c178c1;
+}
+
 /*# sourceMappingURL=paper-dashboard.css.map */
