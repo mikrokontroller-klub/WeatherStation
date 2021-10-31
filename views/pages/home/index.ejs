@@ -23,7 +23,10 @@
                 <hr />
                 <div class="stats">
                     <i class="fa fa-clock-o"></i>
-                    Last updated: <%= moment(sensor.measurement.measuredAt).fromNow() %>
+                    Last updated:
+                    <span id="updated-time-<%= sensor.id %>" data-updated-time="<%= sensor.measurement.measuredAt %>" >
+                        <%= moment(sensor.measurement.measuredAt).fromNow() %>
+                    </span>
                 </div>
             </div>
         </div>
@@ -71,7 +74,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <%- contentFor('js') %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
+
+    moment.relativeTimeThreshold('ss', 0);
+    setInterval(()=> {
+        <% lastMeasurements.forEach(sensor => { %>
+            $("#updated-time-<%= sensor.id %>").text(moment($("#updated-time-<%= sensor.id %>").data().updatedTime).fromNow());
+            //console.log(moment($("#updated-time-<%= sensor.id %>").data('update-time')));
+        <% }) %>
+    }, 1000);
+
     chartColor = '#FFFFFF';
 
     //TODO: Replace this with API call

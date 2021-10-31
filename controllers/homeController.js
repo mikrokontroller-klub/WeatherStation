@@ -16,7 +16,7 @@ exports.homeController = {
                     color: 'warning',
                 },
                 measurement: {
-                    measuredAt: moment().subtract(10, 'minutes'),
+                    measuredAt: moment(),
                     data: 15.67,
                     unitName: 'Celsius',
                     unitPostfix: 'C°',
