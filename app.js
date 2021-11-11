@@ -6,6 +6,7 @@ const session = require('express-session');
 const expressLayouts = require('express-ejs-layouts');
 const { baseController } = require('./controllers/baseController');
 const app = express();
+const mongoose = require('mongoose');
 
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
@@ -20,6 +21,14 @@ app.use(
         //cookie: { secure: true },
     })
 );
+
+mongoose.connect('mongodb://localhost:27017/test', { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+    if (err) {
+        console.log(chalk.red('Error connecting to database'), err);
+    } else {
+        console.log(chalk.green('Connected to database'));
+    }
+});
 
 app.get('/', baseController.index);
 

@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon --watch",
+    "db": "mongo-express --admin --url mongodb://127.0.0.1:27017",
     "start": "node app.js",
     "inspect": "node --inspect index.js",
     "sass": "sass styles/paper-dashboard.scss:public/css/paper-dashboard.css"
@@ -19,9 +20,12 @@
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.17.2",
     "moment": "^2.29.1",
+    "mongoose": "^6.0.12",
     "nodemon": "^2.0.12"
   },
   "devDependencies": {
+    "migrate-mongo": "^8.2.3",
+    "mongo-express": "^1.0.0-alpha.4",
     "prettier": "^2.4.1",
     "sass": "^1.42.1",
     "sass-loader": "^12.1.0"
