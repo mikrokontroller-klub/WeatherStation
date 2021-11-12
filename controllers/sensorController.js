@@ -1,29 +1,18 @@
+const Sensor = require('../models/sensor');
+const Measurement = require('../models/measurement');
+
 /**
  * @description Resourceful controller for the sensors
  */
 exports.sensorController = {
     /** Display a listing of the resource. */
     index: async (req, res) => {
-        let sensors = [
-            {
-                id: 1,
-                name: 'My Temperature Sensor',
-                type: 'Temperature',
-                description: 'Inside Sensor',
-            },
-            {
-                id: 2,
-                name: 'My Humidity Sensor',
-                type: 'Humidity',
-                description: '',
-            },
-            {
-                id: 3,
-                name: 'My Pressure Sensor',
-                type: 'Pressure',
-                description: 'On the roof ',
-            },
-        ];
+        let sensors = await Sensor.find({}).select({
+            _id: 1,
+            name: 1,
+            type: 1,
+            description: 1,
+        });
         res.render('pages/sensors/index', { activePage: 'sensors', sensors });
     },
 
@@ -39,40 +28,24 @@ exports.sensorController = {
 
     /** Display the specified resource. */
     show: async (req, res) => {
-        let sensor = {
-            id: 1,
-            name: 'My Temperature Sensor',
-            type: 'Temperature',
-            description: 'Inside Sensor',
-            showLastMeasurement: true,
-            showGraph: true,
-            color: 'info',
-            coordinate: {
-                latitude: 47.473118115829706,
-                longitude: 19.0533464181153,
-            },
-            measurements: {
-                data: Array.from({ length: 20 }, () => Math.floor(Math.random() * 40)).sort((a, b) => a - b),
-                labels: Array.from({ length: 20 }, () => Math.floor(Math.random() * 40)).sort((a, b) => a - b),
-            },
+        let sensor = await Sensor.findOne({
+            _id: req.params.id,
+        });
+        //TODO: Connect queries in mongo, and create time window for data
+        let measurements = await Measurement.find({ sensorId: sensor.id });
+        sensor.measurements = {
+            data: measurements.map((measurement) => measurement.value),
+            //Labels in HH:mm format
+            labels: measurements.map((measurement) => measurement.createdAt.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })),
         };
         res.render('pages/sensors/view', { activePage: 'sensors', sensor });
     },
 
     /** Show the form for editing the specified resource. */
     edit: async (req, res) => {
-        let sensor = {
-            id: 1,
-            name: 'My Temperature Sensor',
-            type: 'Temperature',
-            description: 'Inside Sensor',
-            showLastMeasurement: true,
-            showGraph: true,
-            coordinate: {
-                latitude: 47.473118115829706,
-                longitude: 19.0533464181153,
-            },
-        };
+        let sensor = await Sensor.findOne({
+            _id: req.params.id,
+        });
         res.render('pages/sensors/edit', { activePage: 'sensors', sensor });
     },
 
@@ -83,6 +56,9 @@ exports.sensorController = {
 
     /** Remove the specified resource from storage. */
     destroy: async (req, res) => {
-        //TODO: Remove sensor from DB
+        await Sensor.findOneAndDelete({
+            _id: req.params.id,
+        });
+        res.redirect('/sensors');
     },
 };

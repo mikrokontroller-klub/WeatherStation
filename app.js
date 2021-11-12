@@ -6,7 +6,6 @@ const session = require('express-session');
 const expressLayouts = require('express-ejs-layouts');
 const { baseController } = require('./controllers/baseController');
 const app = express();
-const mongoose = require('mongoose');
 const connectDB = require('./utils/connectDB');
 
 app.use(express.static('public'));

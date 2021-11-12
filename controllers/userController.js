@@ -1,19 +1,12 @@
+const Users = require('../models/user');
+
 /**
  * @description Resourceful controller for the users
  */
 exports.userController = {
     /** Display a listing of the resource. */
     index: async (req, res) => {
-        let users = [
-            {
-                id: 1,
-                name: 'Kostyál Bálint',
-            },
-            {
-                id: 2,
-                name: 'Kis Béla',
-            },
-        ];
+        let users = await Users.find({}).select('-password');
         res.render('pages/users/index', { activePage: 'users', users });
     },
 
@@ -29,21 +22,17 @@ exports.userController = {
 
     /** Display the specified resource. */
     show: async (req, res) => {
-        let user = {
-            id: 1,
-            name: 'Kostyál Bálint',
-            apiToken: 'This is a user api token',
-        };
+        let user = await Users.findOne({
+            _id: req.params.id,
+        }).select('-password');
         res.render('pages/users/view', { activePage: 'users', user });
     },
 
     /** Show the form for editing the specified resource. */
     edit: async (req, res) => {
-        let user = {
-            id: 1,
-            name: 'Kostyál Bálint',
-            apiToken: 'This is a user api token',
-        };
+        let user = await Users.findOne({
+            _id: req.params.id,
+        }).select('-password');
         res.render('pages/users/edit', { activePage: 'users', user });
     },
 
@@ -54,6 +43,9 @@ exports.userController = {
 
     /** Remove the specified resource from storage. */
     destroy: async (req, res) => {
-        //TODO: Remove sensor from DB
+        await Users.findOneAndDelete({
+            _id: req.params.id,
+        });
+        res.redirect('/users');
     },
 };

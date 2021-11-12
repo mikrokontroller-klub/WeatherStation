@@ -20,7 +20,7 @@
                                 <% users.forEach(user => { %>
                                     <tr>
                                         <td><%= user.id %></td>
-                                        <td><%= user.name %></td>
+                                        <td><%= user.username %></td>
                                         <td class="text-right">
                                             <a href="/users/<%= user.id %>" class="btn btn-success btn-sm m-1">View</a>
                                             <a href="/users/<%= user.id %>/edit" class="btn btn-info btn-sm m-1">Edit</a>

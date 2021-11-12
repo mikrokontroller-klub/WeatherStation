@@ -6,11 +6,23 @@ module.exports = {
         // See https://github.com/seppevs/migrate-mongo/#creating-a-new-migration-script
         // Example:
         // await db.collection('albums').updateOne({artist: 'The Beatles'}, {$set: {blacklisted: true}});
-        await db.collection('users').insertOne({
-            username: 'admin',
-            password: 'admin',
-            apiToken: generateApiToken(),
-        });
+        await db.collection('users').insertMany([
+            {
+                username: 'admin',
+                password: 'admin',
+                apiToken: generateApiToken(),
+            },
+            {
+                username: 'user',
+                password: 'user',
+                apiToken: generateApiToken(),
+            },
+            {
+                username: 'user2',
+                password: 'user2',
+                apiToken: generateApiToken(),
+            },
+        ]);
     },
 
     async down(db, client) {
