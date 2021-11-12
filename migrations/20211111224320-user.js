@@ -1,3 +1,5 @@
+const generateApiToken = require('../utils/generateApiToken');
+
 module.exports = {
     async up(db, client) {
         // TODO write your migration here.
@@ -7,7 +9,7 @@ module.exports = {
         await db.collection('users').insertOne({
             username: 'admin',
             password: 'admin',
-            apiToken: '',
+            apiToken: generateApiToken(),
         });
     },
 

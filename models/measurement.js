@@ -1,8 +1,13 @@
 const mongoose = require('mongoose');
 
 const measurementSchema = mongoose.Schema({
+    _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+    },
     sensorId: {
-        type: String,
+        type: mongoose.Schema.ObjectId,
+        ref: 'Sensor',
         required: true,
     },
     value: {

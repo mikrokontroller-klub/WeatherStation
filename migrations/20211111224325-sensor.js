@@ -1,6 +1,6 @@
 module.exports = {
     async up(db, client) {
-        await db.collection('sensor').insertOne({
+        await db.collection('sensors').insertOne({
             name: 'My First Sensor',
             description: 'This is my first sensor',
             type: 'temperature',
@@ -13,6 +13,6 @@ module.exports = {
     },
 
     async down(db, client) {
-        await db.collection('sensor').deleteMany({});
+        await db.collection('sensors').deleteMany({});
     },
 };
