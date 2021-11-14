@@ -14,15 +14,6 @@ const measurementSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
-    //Unit of measurement
-    unit: {
-        type: String,
-        required: true,
-    },
-    unitName: {
-        type: String,
-        required: true,
-    },
     //When the measurement was taken
     measuredAt: {
         type: Date,

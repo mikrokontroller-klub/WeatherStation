@@ -6,22 +6,21 @@
                 <h4 class="card-title text-center">Add new sensor</h4>
             </div>
             <div class="card-body">
-                <form>
+                <form action="/sensors/new?_method=PUT" method="POST">
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" class="form-control" />
+                                <input name="name" type="text" class="form-control" />
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Type</label>
-                                <select class="custom-select" id="inputGroupSelect02">
-                                    <option selected>Sensor Type...</option>
-                                    <option value="1">Temperature</option>
-                                    <option value="2">Humidity</option>
-                                    <option value="3">Pressure</option>
+                                <select class="custom-select" name="type">
+                                    <% sensorTypes.forEach(type => { %>
+                                        <option value="<%= type.id%>"><%= type.name%></option>
+                                    <% }); %>
                                 </select>
                             </div>
                         </div>
@@ -30,13 +29,13 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <lable>Latitude</lable>
-                                <input type="number" class="form-control" />
+                                <input name="latitude" type="number" class="form-control" />
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <lable>Longitude</lable>
-                                <input type="number" class="form-control" />
+                                <input name="longitude" type="number" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -44,13 +43,13 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <lable>Description</lable>
-                                <textarea class="form-control textarea" placeholder="Sensor description"></textarea>
+                                <textarea name="description" class="form-control textarea" placeholder="Sensor description"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <a href="/sensors" class="btn btn-success">Save</a>
+                            <input type="submit" class="btn btn-success" value="Save">
                             <a href="/sensors" class="btn btn-danger">Cancel</a>
                         </div>
                     </div>

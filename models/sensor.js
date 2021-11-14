@@ -1,37 +1,32 @@
 const mongoose = require('mongoose');
 
 const sensorSchema = mongoose.Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-    },
     name: {
         type: String,
         required: true,
     },
     description: {
         type: String,
-        required: true,
     },
-    type: {
-        type: String,
+    typeId: {
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
     latitude: {
         type: Number,
-        required: true,
     },
     longitude: {
         type: Number,
-        required: true,
     },
     showLastMeasurement: {
         type: Boolean,
         required: true,
+        default: true,
     },
     showGraph: {
         type: Boolean,
         required: true,
+        default: true,
     },
     //Color of the graph in the UI, uses bootstrap colors
     color: {

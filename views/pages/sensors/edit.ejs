@@ -6,22 +6,21 @@
                 <h4 class="card-title text-center">Edit sensor</h4>
             </div>
             <div class="card-body">
-                <form>
+                <form action="/sensors/<%= sensor.id %>/edit?_method=put" method="post">
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" class="form-control" value="<%= sensor.name %>" />
+                                <input name="name" type="text" class="form-control" value="<%= sensor.name %>" />
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Type</label>
-                                <select class="custom-select" id="inputGroupSelect02">
-                                    <option>Sensor Type...</option>
-                                    <option selected value="1">Temperature</option>
-                                    <option value="2">Humidity</option>
-                                    <option value="3">Pressure</option>
+                                <select class="custom-select" name="type">
+                                    <% sensorTypes.forEach(type => { %>
+                                        <option value="<%= type.id %>"><%= type.name %></option>
+                                    <% }); %>
                                 </select>
                             </div>
                         </div>
@@ -30,7 +29,7 @@
                         <div class="col-12">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" <%= sensor.showLastMeasurement ? "checked" : ""%> />
+                                    <input name="showLastMeasurement" class="form-check-input" type="checkbox" value="true" <%= sensor.showLastMeasurement ? "checked" : ""%> />
                                     Show last measurement
                                     <span class="form-check-sign">
                                         <span class="check"></span>
@@ -41,7 +40,7 @@
                         <div class="col-12">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" <%= sensor.showGraph ? "checked" : ""%>/>
+                                    <input name="showGraph" class="form-check-input" type="checkbox" value="true" <%= sensor.showGraph ? "checked" : ""%>/>
                                     Show graph
                                     <span class="form-check-sign">
                                         <span class="check"></span>
@@ -54,13 +53,13 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Latitude</label>
-                                <input type="number" class="form-control" value="<%= sensor.latitude %>" />
+                                <input name="latitude" type="number" class="form-control" value="<%= sensor.latitude %>" />
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Longitude</label>
-                                <input type="number" class="form-control" value="<%= sensor.longitude %>" />
+                                <input name="longitude" type="number" class="form-control" value="<%= sensor.longitude %>" />
                             </div>
                         </div>
                     </div>
@@ -68,13 +67,13 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label>Description</label>
-                                <textarea class="form-control textarea" placeholder="Sensor description"><%= sensor.description %></textarea>
+                                <textarea name="description" class="form-control textarea" placeholder="Sensor description"><%= sensor.description %></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <a href="/sensors" class="btn btn-success">Save</a>
+                            <input type="submit" class="btn btn-success" value="Save">
                             <a href="/sensors" class="btn btn-danger">Cancel</a>
                         </div>
                     </div>

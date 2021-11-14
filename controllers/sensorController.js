@@ -1,5 +1,6 @@
 const Sensor = require('../models/sensor');
 const Measurement = require('../models/measurement');
+const SensorType = require('../models/sensor-type');
 
 /**
  * @description Resourceful controller for the sensors
@@ -18,12 +19,50 @@ exports.sensorController = {
 
     /** Show the form for creating a new resource. */
     create: async (req, res) => {
-        res.render('pages/sensors/new', { activePage: 'sensors' });
+        let sensorTypes = await SensorType.find({}).select({
+            _id: 1,
+            name: 1,
+        });
+        res.render('pages/sensors/new', { activePage: 'sensors', sensorTypes });
     },
 
     /** Store a newly created resource in storage. */
     store: async (req, res) => {
-        //TODO: Save sensor into DB
+        //TODO: Refactor validation, move to middleware
+        //Validate the request
+        req.checkBody('name', 'Name is required').notEmpty();
+        req.checkBody('type', 'Sensor Type is required').notEmpty();
+        //Color must be a bootstrap color
+        req.checkBody('color', 'Color must be a valid Bootstrap color').isIn([undefined, 'primary', 'secondary', 'success', 'danger', 'warning', 'info']);
+
+        //Check for errors
+        let errors = req.validationErrors();
+        if (errors) {
+            console.log(errors);
+            //req.flash('error', errors);
+            return res.redirect('/sensors/new');
+        }
+
+        //Get typeId from DB
+        let sensorType = await SensorType.findById(req.body.type);
+        //Validate sensorType
+        if (!sensorType) {
+            //req.flash('error', 'Sensor type not found');
+            return res.redirect('/sensors/new');
+        }
+
+        let sensor = new Sensor({
+            name: req.body.name,
+            typeId: sensorType.id,
+            coordinates: {
+                latitude: req.body.latitude,
+                longitude: req.body.longitude,
+            },
+            color: req.body.color ?? 'primary',
+            description: req.body.description,
+        });
+        await sensor.save();
+        res.redirect('/sensors');
     },
 
     /** Display the specified resource. */
@@ -43,22 +82,61 @@ exports.sensorController = {
 
     /** Show the form for editing the specified resource. */
     edit: async (req, res) => {
-        let sensor = await Sensor.findOne({
-            _id: req.params.id,
-        });
-        res.render('pages/sensors/edit', { activePage: 'sensors', sensor });
+        try {
+            let sensor = await Sensor.findOne({
+                _id: req.params.id,
+            });
+            let sensorTypes = await SensorType.find({}).select({
+                _id: 1,
+                name: 1,
+            });
+            res.render('pages/sensors/edit', { activePage: 'sensors', sensor, sensorTypes });
+        } catch (e) {
+            console.error(e);
+            res.redirect('/sensors');
+        }
     },
 
     /** Update the specified resource in storage. */
     update: async (req, res) => {
-        //TODO: Update sensor in DB
+        // Update sensor in DB
+        let sensor = await Sensor.findOneAndUpdate(
+            {
+                _id: req.params.id,
+            },
+            {
+                name: req.body.name,
+                typeId: req.body.type,
+                coordinates: {
+                    latitude: req.body.latitude,
+                    longitude: req.body.longitude,
+                },
+                showLastMeasurement: !!req.body.showLastMeasurement,
+                showGraph: !!req.body.showGraph,
+                color: req.body.color ?? 'primary',
+                description: req.body.description,
+            }
+        );
+        console.log(req.body);
+
+        res.redirect('/sensors');
     },
 
     /** Remove the specified resource from storage. */
     destroy: async (req, res) => {
-        await Sensor.findOneAndDelete({
-            _id: req.params.id,
-        });
+        try {
+            //Check if sensor has measurements
+            let sensor = await Sensor.findOne({
+                _id: req.params.id,
+            });
+            if (sensor.measurements.length > 0) {
+                //req.flash('error', 'Sensor has measurements, cannot delete');
+                return res.redirect('/sensors');
+            }
+            await Sensor.findByIdAndDelete(req.params.id);
+        } catch (e) {
+            console.error(e);
+        }
         res.redirect('/sensors');
     },
 };

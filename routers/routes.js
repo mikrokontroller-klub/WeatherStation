@@ -40,11 +40,11 @@ router.get('/sensors', sensorController.index);
 
 //CREATE - Sensors
 router.get('/sensors/new', sensorController.create); //Show the form
-router.put('/sensors/new'); //Process data from form
+router.put('/sensors/new', sensorController.store); //Process data from form
 
 //UPDATE - Sensors
 router.get('/sensors/:id/edit', sensorController.edit); //Show the form
-router.put('/sensors/:id/edit'); //Process data from from
+router.put('/sensors/:id/edit', sensorController.update); //Process data from from
 
 //READ - Sensors
 router.get('/sensors/:id', sensorController.show);

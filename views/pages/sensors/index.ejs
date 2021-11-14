@@ -26,7 +26,9 @@
                                 <td class="text-right">
                                     <a href="/sensors/<%=sensor.id%>" class="btn btn-success btn-sm m-1">View</a>
                                     <a href="/sensors/<%=sensor.id%>/edit" class="btn btn-info btn-sm m-1">Edit</a>
-                                    <a href="javascript:;" class="btn btn-danger btn-sm m-1">Delete</a>
+                                    <form class="d-inline" action="/sensors/<%=sensor.id%>?_method=DELETE" method="post">
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         <% }) %>
