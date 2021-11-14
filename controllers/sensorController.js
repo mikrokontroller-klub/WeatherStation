@@ -100,7 +100,7 @@ exports.sensorController = {
     /** Update the specified resource in storage. */
     update: async (req, res) => {
         // Update sensor in DB
-        let sensor = await Sensor.findOneAndUpdate(
+        await Sensor.findOneAndUpdate(
             {
                 _id: req.params.id,
             },
@@ -117,8 +117,6 @@ exports.sensorController = {
                 description: req.body.description,
             }
         );
-        console.log(req.body);
-
         res.redirect('/sensors');
     },
 

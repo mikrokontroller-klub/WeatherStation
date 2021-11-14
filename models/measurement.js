@@ -5,11 +5,6 @@ const measurementSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
-    sensorId: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Sensor',
-        required: true,
-    },
     value: {
         type: Number,
         required: true,

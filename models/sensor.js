@@ -8,10 +8,18 @@ const sensorSchema = mongoose.Schema({
     description: {
         type: String,
     },
-    typeId: {
+    type: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
+        ref: 'SensorType',
     },
+    measurements: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'Measurement',
+        },
+    ],
     latitude: {
         type: Number,
     },
