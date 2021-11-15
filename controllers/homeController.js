@@ -23,9 +23,9 @@ exports.homeController = {
                     id: sensor.id,
                     name: sensor.name,
                     type: sensor.type.name,
+                    color: sensor.color,
                     icon: {
                         name: sensor.type.symbol,
-                        color: sensor.color,
                     },
                     measurement: {
                         measuredAt: moment(sensor.measurements[0] ? sensor.measurements[0].measuredAt : ''),
