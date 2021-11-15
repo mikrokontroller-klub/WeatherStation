@@ -85,7 +85,7 @@ exports.sensorController = {
         try {
             let sensor = await Sensor.findOne({
                 _id: req.params.id,
-            });
+            }).populate('type');
             let sensorTypes = await SensorType.find({}).select({
                 _id: 1,
                 name: 1,
