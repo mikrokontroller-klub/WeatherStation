@@ -1,6 +1,6 @@
 module.exports = {
     async up(db, client) {
-        const type = await db.collection('sensortypes').findOne({ name: 'Temperature' });
+        const type = await db.collection('sensor-types').findOne({ name: 'Temperature' });
         const measurements = await db.collection('measurements').find({}).toArray();
 
         await db.collection('sensors').insertOne({
