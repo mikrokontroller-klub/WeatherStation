@@ -82,4 +82,11 @@ exports.userController = {
             res.redirect('/users');
         }
     },
+
+    generateToken: async (req, res) => {
+        let user = await Users.findById(req.params.id);
+        user.apiToken = generateApiToken();
+        await user.save();
+        res.redirect(`/users/${req.params.id}/edit`);
+    },
 };

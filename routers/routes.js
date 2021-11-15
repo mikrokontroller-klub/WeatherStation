@@ -70,6 +70,10 @@ router.put('/users/:id/edit', userController.update);
 //Show user data by id
 router.get('/users/:id', userController.show);
 
+//Delete user by id
 router.delete('/users/:id', userController.destroy);
+
+//Generate api token for user by id
+router.get('/users/:id/token', userController.generateToken);
 
 exports.routes = router;
