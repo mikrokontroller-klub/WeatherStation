@@ -24,7 +24,7 @@ exports.homeController = {
                     name: sensor.name,
                     type: sensor.type.name,
                     icon: {
-                        name: 'fas fa-thermometer-half',
+                        name: sensor.type.symbol,
                         color: sensor.color,
                     },
                     measurement: {

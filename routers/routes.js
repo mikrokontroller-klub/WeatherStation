@@ -6,6 +6,7 @@ const { loginController } = require('../controllers/loginController');
 const { homeController } = require('../controllers/homeController');
 const { userController } = require('../controllers/userController');
 const { sensorController } = require('../controllers/sensorController');
+const { sensorTypeController } = require('../controllers/sensorTypeController');
 
 /**
  * @description This contains regular application routes
@@ -51,6 +52,24 @@ router.get('/sensors/:id', sensorController.show);
 
 //DELETE - Sensors
 router.delete('/sensors/:id', sensorController.destroy);
+
+/**
+ * Sensor Types
+ */
+
+//Show sensor types page - all sensor types
+router.get('/sensor-types', sensorTypeController.index);
+
+//CREATE - Sensor Types
+router.get('/sensor-types/new', sensorTypeController.create); //Show the form
+router.put('/sensor-types/new', sensorTypeController.store); //Process data from form
+
+//UPDATE - Sensor Types
+router.get('/sensor-types/:id/edit', sensorTypeController.edit); //Show the form
+router.put('/sensor-types/:id/edit', sensorTypeController.update); //Process data from from
+
+//DELETE - Sensor Types
+router.delete('/sensor-types/:id', sensorTypeController.destroy);
 
 /**
  * Users CRUD

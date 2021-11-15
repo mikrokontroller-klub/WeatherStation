@@ -1,0 +1,54 @@
+<%- contentFor('content') %>
+<div class="row">
+    <div class="col col-lg-12">
+        <div class="card card-user">
+            <div class="card-header">
+                <h4 class="card-title text-center">Create sensor type</h4>
+            </div>
+            <div class="card-body">
+                <form action="/sensor-types/new?_method=put" method="post">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input name="name" type="text" class="form-control" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Unit</label>
+                                <input name="unit" type="text" class="form-control" value="" />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>UnitName</label>
+                                <input name="unitName" type="text" class="form-control" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Unit Symbol Name</label>
+                                <input name="symbol" type="text" class="form-control" value="far fa-smile" />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <p class="m-0 mt-4">Usable symbols can be found at: <a href="https://fontawesome.com/v5.15/icons" target="_blank">Font Awesome</a></p>
+                            <p class="text-muted">Please use Version 5 icons, and full class names</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="submit" class="btn btn-success" value="Save">
+                            <a href="/sensor-types" class="btn btn-danger">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

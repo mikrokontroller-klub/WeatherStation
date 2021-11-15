@@ -1,0 +1,50 @@
+<%- contentFor('content') %>
+<div class="row">
+    <div class="col col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title text-center">Sensor Types</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="text-primary">
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Unit</th>
+                                <th>Unit Name</th>
+                                <th>Symbol</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <% types.forEach(type => { %>
+                            <tr>
+                                <td><%= type.id %></td>
+                                <td><%= type.name %></td>
+                                <td><%= type.unit %></td>
+                                <td><%= type.unitName %></td>
+                                <td class="">
+                                    <i class="<%= type.symbol %> fa-2x"></i>
+                                </td>
+                                <td class="text-right">
+                                    <a href="/sensor-types/<%=type.id%>/edit" class="btn btn-info btn-sm m-1">Edit</a>
+                                    <form class="d-inline" action="/sensor-types/<%=type.id%>?_method=DELETE" method="post">
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-end">
+                        <a href="/sensor-types/new" class="btn btn-success mr-4">Add New</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('css') %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />

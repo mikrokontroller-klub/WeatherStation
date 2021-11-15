@@ -16,6 +16,13 @@ const sensorTypeSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    symbol: {
+        type: String,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
 module.exports = mongoose.model('SensorType', sensorTypeSchema);
