@@ -1,6 +1,7 @@
 const Sensor = require('../models/sensor');
 const Measurement = require('../models/measurement');
 const SensorType = require('../models/sensor-type');
+const cutLongText = require('../utils/cutLongText');
 
 /**
  * @description Resourceful controller for the sensors
@@ -16,6 +17,10 @@ exports.sensorController = {
                 description: 1,
             })
             .populate('type');
+        sensors = sensors.map((sensor) => {
+            sensor.description = cutLongText(sensor.description, 35);
+            return sensor;
+        });
         res.render('pages/sensors/index', { activePage: 'sensors', sensors });
     },
 
