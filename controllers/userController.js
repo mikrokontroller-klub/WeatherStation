@@ -1,4 +1,7 @@
 const Users = require('../models/user');
+const generateApiToken = require('../utils/generateApiToken');
+const bcrypt = require('bcrypt');
+const chalk = require('chalk');
 
 /**
  * @description Resourceful controller for the users
@@ -17,7 +20,18 @@ exports.userController = {
 
     /** Store a newly created resource in storage. */
     store: async (req, res) => {
-        //TODO: Save sensor into DB
+        if (req.body.username && req.body.password) {
+            let user = new Users({
+                username: req.body.username,
+                password: await bcrypt.hash(req.body.password, 10),
+                apiToken: generateApiToken(),
+            });
+            await user.save();
+            res.redirect('/users');
+        } else {
+            console.log(chalk.yellow('[Create User]:'), ' Missing username or password');
+            res.redirect('/users/new');
+        }
     },
 
     /** Display the specified resource. */
@@ -39,13 +53,33 @@ exports.userController = {
     /** Update the specified resource in storage. */
     update: async (req, res) => {
         //TODO: Update sensor in DB
+        if (req.body.username && req.body.password) {
+            try {
+                await Users.findByIdAndUpdate(req.params.id, {
+                    username: req.body.username,
+                    password: await bcrypt.hash(req.body.password, 10),
+                });
+            } catch (e) {
+                console.log(chalk.red('[Update User]:'), e);
+                res.redirect(`/users/${req.params.id}/edit`);
+            }
+            res.redirect('/users');
+        } else {
+            console.log(chalk.yellow('[Update User]:'), ' Missing username or password');
+            res.redirect(`/users/${req.params.id}/edit`);
+        }
     },
 
     /** Remove the specified resource from storage. */
     destroy: async (req, res) => {
-        await Users.findOneAndDelete({
-            _id: req.params.id,
-        });
-        res.redirect('/users');
+        let user = await Users.findOne({ username: req.session.username });
+
+        if (req.params.id && req.params.id !== user.id) {
+            await Users.findByIdAndDelete(req.params.id);
+            res.redirect('/users');
+        } else {
+            console.log(chalk.yellow('[Delete User]:'), ' You can not delete yourself');
+            res.redirect('/users');
+        }
     },
 };

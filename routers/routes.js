@@ -61,11 +61,15 @@ router.get('/users', userController.index);
 
 //Show user create form
 router.get('/users/new', userController.create);
+router.put('/users/new', userController.store);
 
 //Show user edit form
 router.get('/users/:id/edit', userController.edit);
+router.put('/users/:id/edit', userController.update);
 
 //Show user data by id
 router.get('/users/:id', userController.show);
+
+router.delete('/users/:id', userController.destroy);
 
 exports.routes = router;

@@ -1,4 +1,5 @@
 const generateApiToken = require('../utils/generateApiToken');
+const bcrypt = require('bcrypt');
 
 module.exports = {
     async up(db, client) {
@@ -9,23 +10,23 @@ module.exports = {
         await db.collection('users').insertMany([
             {
                 username: 'admin',
-                password: 'admin',
+                password: await bcrypt.hash('admin', 10),
                 apiToken: generateApiToken(),
             },
             {
                 username: 'user',
-                password: 'user',
+                password: await bcrypt.hash('user', 10),
                 apiToken: generateApiToken(),
             },
             {
                 username: 'user2',
-                password: 'user2',
+                password: await bcrypt.hash('user2', 10),
                 apiToken: generateApiToken(),
             },
         ]);
     },
 
     async down(db, client) {
-        await db.collection('users').deleteOne({ username: 'admin' });
+        await db.collection('users').deleteMany({});
     },
 };

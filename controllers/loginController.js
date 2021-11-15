@@ -1,5 +1,7 @@
 const path = require('path');
 const chalk = require('chalk');
+const User = require('../models/user');
+const bcrypt = require('bcrypt');
 
 exports.loginController = {
     /** Display a listing of the resource. */
@@ -13,7 +15,9 @@ exports.loginController = {
         const password = req.body.password;
         if (username && password) {
             //TODO: Get user credentials from Mongo
-            if (username === 'admin' && password === 'admin') {
+            let user = await User.findOne({ username: username });
+
+            if (user && (await bcrypt.compare(req.body.password, user.password))) {
                 req.session.loggedin = true;
                 req.session.username = username;
                 console.log(chalk.green('[Authenticated]: '), username);

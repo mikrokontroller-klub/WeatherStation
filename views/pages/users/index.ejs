@@ -24,7 +24,9 @@
                                         <td class="text-right">
                                             <a href="/users/<%= user.id %>" class="btn btn-success btn-sm m-1">View</a>
                                             <a href="/users/<%= user.id %>/edit" class="btn btn-info btn-sm m-1">Edit</a>
-                                            <a href="javascript:;" class="btn btn-danger btn-sm m-1">Delete</a>
+                                            <form class="d-inline" action="/users/<%= user.id %>?_method=DELETE" method="post">
+                                                <button type="submit" class="btn btn-danger btn-sm" <%= user.username === session.username ? 'disabled' : '' %> >Delete</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 <% })%>
