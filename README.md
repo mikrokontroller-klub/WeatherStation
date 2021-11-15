@@ -40,3 +40,24 @@ yarn db
 
 > **_NOTE:_**  Prettier and scss are set to autorun on save in WebStorm
 
+---
+
+# TODO List
+
+ - [ ] Create /api endpoint for the measurements to save the measurements
+ - [ ] Create admin and regular user accounts
+    - [ ] Admin account should have access to all features
+      - API Token generation only can be accessed by the admin
+    - [ ] Sensor can be assigned to one user
+    - [ ] For every user show only their sensors
+    - [ ] Users can only change their settings, and can't create new users
+ - [ ] Set date range for the graphs
+ - [ ] Group and reduce data in the database query
+   - [ ] Maybe MongoDB-s new time series collection can be used somehow
+ - [ ] Add login error massages
+ - [ ] Add server one time notification system (breadcrumb or something)
+   - [ ] Do error handling
+ - [ ] Add pop up warning for deleting a sensor
+ - [ ] Add pop up warning for deleting a sensor type
+ - [ ] Add pop up warning for deleting a user
+ - [ ] Migrate the project to TypeScript
