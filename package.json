@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "nodemon --watch",
     "db": "mongo-express --admin --url mongodb://127.0.0.1:27017",
+    "db:init": "migrate-mongo up",
     "start": "node app.js",
     "inspect": "node --inspect index.js",
     "sass": "sass styles/paper-dashboard.scss:public/css/paper-dashboard.css"
