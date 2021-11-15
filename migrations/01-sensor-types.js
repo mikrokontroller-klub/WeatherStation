@@ -4,7 +4,7 @@ module.exports = {
         // See https://github.com/seppevs/migrate-mongo/#creating-a-new-migration-script
         // Example:
         // await db.collection('albums').updateOne({artist: 'The Beatles'}, {$set: {blacklisted: true}});
-        await db.collection('sensor-types').insertMany([
+        await db.collection('sensortypes').insertMany([
             {
                 name: 'Temperature',
                 unit: 'C°',
@@ -32,6 +32,6 @@ module.exports = {
         // TODO write the statements to rollback your migration (if possible)
         // Example:
         // await db.collection('albums').updateOne({artist: 'The Beatles'}, {$set: {blacklisted: false}});
-        await db.collection('sensor-types').deleteMany({});
+        await db.collection('sensortypes').deleteMany({});
     },
 };

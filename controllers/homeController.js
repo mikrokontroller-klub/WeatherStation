@@ -1,5 +1,6 @@
 const moment = require('moment');
 const Measurements = require('../models/measurement');
+const Sensors = require('../models/sensor');
 
 /**
  * @description
@@ -25,7 +26,7 @@ exports.homeController = {
             },
         ];*/
         //Get latest measurements by sensor from db
-        const measurements = await Measurements.aggregate([
+        /*const measurements = await Measurements.aggregate([
             {
                 //Group by sensors, and for every sensor get the latest measurement
                 $group: {
@@ -50,59 +51,64 @@ exports.homeController = {
                     unitPostfix: measurement.measurement.unit,
                 },
             };
-        });
+        });*/
 
-        /*let sensorMeasurements = [
-            {
-                id: 2,
-                name: 'My Humidity Sensor',
-                type: 'Humidty',
-                color: 'info',
-                measurements: {
-                    data: Array.from({ length: 20 }, () => Math.floor(Math.random() * 40)).sort((a, b) => a - b),
-                    labels: Array.from({ length: 20 }, () => Math.floor(Math.random() * 40)).sort((a, b) => a - b),
-                },
-            },
-            {
-                id: 3,
-                name: 'My Pressure Sensor',
-                type: 'Pressure',
-                color: 'danger',
-                measurements: {
-                    data: Array.from({ length: 20 }, () => Math.floor(Math.random() * 40)).sort((a, b) => a - b),
-                    labels: Array.from({ length: 20 }, () => Math.floor(Math.random() * 40)).sort((a, b) => a - b),
-                },
-            },
-        ];*/
-        //Get measurements by sensor from db
-        const measurementsBySensor = await Measurements.aggregate([
-            {
-                //Group by sensors, and for every sensor get the latest measurement
-                $group: {
-                    _id: '$sensorId',
-                    measurements: {
-                        $push: '$$ROOT',
+        const lastMeasurements = (
+            await Sensors.find({ showLastMeasurement: true })
+                .populate('type')
+                .populate('measurements', '', {
+                    sort: {
+                        measuredAt: -1,
                     },
-                },
-            },
-        ]);
-        let sensorMeasurements = measurementsBySensor.map((measurement) => {
+                })
+        ).map((sensor) => {
             return {
-                id: measurement._id,
-                name: measurement.measurements[0].sensorName,
-                type: 'Temperature',
-                color: 'info',
-                measurements: {
-                    data: measurement.measurements.map((measurement) => {
-                        return measurement.value;
-                    }),
-                    labels: measurement.measurements.map((measurement) => {
-                        return moment(measurement.measuredAt).format('HH:mm');
-                    }),
+                id: sensor.id,
+                name: sensor.name,
+                type: sensor.type.name,
+                icon: {
+                    name: 'fas fa-thermometer-half',
+                    color: sensor.color,
+                },
+                measurement: {
+                    measuredAt: moment(sensor.measurements[0].measuredAt),
+                    data: sensor.measurements[0].value.toFixed(2),
+                    unitName: sensor.type.unitName,
+                    unitPostfix: sensor.type.unit,
                 },
             };
         });
 
-        res.render('pages/home/index', { activePage: 'home', lastMeasurements, sensorMeasurements, moment });
+        const graphData = (
+            await Sensors.find({ showGraph: true })
+                .populate('measurements', '', {
+                    sort: {
+                        measuredAt: -1,
+                    },
+                })
+                .populate('type')
+        ).map((sensor) => {
+            return {
+                id: sensor._id,
+                name: sensor.name,
+                type: sensor.type.name,
+                color: sensor.color,
+                measurements: {
+                    data: sensor.measurements.map((measurement) => {
+                        return measurement.value;
+                    }),
+                    labels: sensor.measurements.map((measurement) => {
+                        return moment(measurement.measuredAt).format('HH:mm');
+                    }),
+                },
+                interval: {
+                    start: moment(sensor.measurements[0].measuredAt),
+                    end: moment(sensor.measurements[sensor.measurements.length - 1].measuredAt),
+                },
+            };
+        });
+        console.log(graphData);
+
+        res.render('pages/home/index', { activePage: 'home', lastMeasurements, graphData, moment });
     },
 };

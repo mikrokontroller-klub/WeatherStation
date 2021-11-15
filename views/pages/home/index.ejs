@@ -34,7 +34,7 @@
     <% }) %>
 </div>
 <div class="row">
-    <% sensorMeasurements.forEach(sensor => { %>
+    <% graphData.forEach(sensor => { %>
     <div class="col-lg-6 col-sm-12">
         <div class="card">
             <div class="card-header">
@@ -44,7 +44,7 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="pull-right">
-                            <span class="badge badge-pill badge-<%= sensor.color %>"> <%= sensor.type %> </span>
+                            <span class="badge badge-pill badge-<%= sensor.color %> pr-2 pl-2"> <%= sensor.type %> </span>
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                 <hr />
                 <div class="row">
                     <div class="col-sm-7">
-                        <div class="footer-title">Last 7 days</div>
+                        <div class="footer-title">Last <%= sensor.interval.start.fromNow().replace('ago', '') %></div>
                     </div>
                     <div class="col-sm-5">
                         <div class="pull-right">
@@ -88,9 +88,9 @@
     chartColor = '#FFFFFF';
 
     //TODO: Replace this with API call
-    let sensorMeasurements = <%- JSON.stringify(sensorMeasurements) %>
+    let graphData = <%- JSON.stringify(graphData) %>
 
-    sensorMeasurements.forEach(sensor => {
+        graphData.forEach(sensor => {
         ctx = document.getElementById(`chart-${sensor.id}`).getContext('2d');
         new Chart(ctx, {
             type: 'line',

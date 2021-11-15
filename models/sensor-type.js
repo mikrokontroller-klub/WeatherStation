@@ -18,4 +18,4 @@ const sensorTypeSchema = mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('sensor-types', sensorTypeSchema);
+module.exports = mongoose.model('SensorType', sensorTypeSchema);
