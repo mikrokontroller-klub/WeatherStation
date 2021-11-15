@@ -8,51 +8,6 @@ const Sensors = require('../models/sensor');
 exports.homeController = {
     /** Display a listing of the resource. */
     index: async (req, res) => {
-        /*let lastMeasurements = [
-            {
-                id: 1,
-                name: 'My Temperature Sensor',
-                type: 'Temperature',
-                icon: {
-                    name: 'fas fa-thermometer-half',
-                    color: 'warning',
-                },
-                measurement: {
-                    measuredAt: moment(),
-                    data: 15.67,
-                    unitName: 'Celsius',
-                    unitPostfix: 'C°',
-                },
-            },
-        ];*/
-        //Get latest measurements by sensor from db
-        /*const measurements = await Measurements.aggregate([
-            {
-                //Group by sensors, and for every sensor get the latest measurement
-                $group: {
-                    _id: '$sensorId',
-                    measurement: {
-                        $last: '$$ROOT',
-                    },
-                },
-            },
-        ]);
-        lastMeasurements = measurements.map((measurement) => {
-            return {
-                id: measurement._id,
-                icon: {
-                    name: 'fas fa-thermometer-half',
-                    color: 'info',
-                },
-                measurement: {
-                    measuredAt: moment(measurement.measurement.measuredAt),
-                    data: measurement.measurement.value.toFixed(2),
-                    unitName: measurement.measurement.unitName,
-                    unitPostfix: measurement.measurement.unit,
-                },
-            };
-        });*/
-
         const lastMeasurements = (
             await Sensors.find({ showLastMeasurement: true })
                 .populate('type')
@@ -61,24 +16,27 @@ exports.homeController = {
                         measuredAt: -1,
                     },
                 })
-        ).map((sensor) => {
-            return {
-                id: sensor.id,
-                name: sensor.name,
-                type: sensor.type.name,
-                icon: {
-                    name: 'fas fa-thermometer-half',
-                    color: sensor.color,
-                },
-                measurement: {
-                    measuredAt: moment(sensor.measurements[0].measuredAt),
-                    data: sensor.measurements[0].value.toFixed(2),
-                    unitName: sensor.type.unitName,
-                    unitPostfix: sensor.type.unit,
-                },
-            };
-        });
+        )
+            //TODO: Do this mapping in DB
+            .map((sensor) => {
+                return {
+                    id: sensor.id,
+                    name: sensor.name,
+                    type: sensor.type.name,
+                    icon: {
+                        name: 'fas fa-thermometer-half',
+                        color: sensor.color,
+                    },
+                    measurement: {
+                        measuredAt: moment(sensor.measurements[0] ? sensor.measurements[0].measuredAt : ''),
+                        data: sensor.measurements[0] ? sensor.measurements[0].value.toFixed(2) : '-',
+                        unitName: sensor.type.unitName,
+                        unitPostfix: sensor.type.unit,
+                    },
+                };
+            });
 
+        //TODO: Add time limits to the query
         const graphData = (
             await Sensors.find({ showGraph: true })
                 .populate('measurements', '', {
@@ -102,12 +60,11 @@ exports.homeController = {
                     }),
                 },
                 interval: {
-                    start: moment(sensor.measurements[0].measuredAt),
-                    end: moment(sensor.measurements[sensor.measurements.length - 1].measuredAt),
+                    start: moment(sensor.measurements[0] ? sensor.measurements[0].measuredAt : ''),
+                    end: moment(sensor.measurements[0] ? sensor.measurements[sensor.measurements.length - 1].measuredAt : ''),
                 },
             };
         });
-        console.log(graphData);
 
         res.render('pages/home/index', { activePage: 'home', lastMeasurements, graphData, moment });
     },

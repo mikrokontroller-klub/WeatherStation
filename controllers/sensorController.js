@@ -8,12 +8,14 @@ const SensorType = require('../models/sensor-type');
 exports.sensorController = {
     /** Display a listing of the resource. */
     index: async (req, res) => {
-        let sensors = await Sensor.find({}).select({
-            _id: 1,
-            name: 1,
-            type: 1,
-            description: 1,
-        });
+        let sensors = await Sensor.find({})
+            .select({
+                _id: 1,
+                name: 1,
+                type: 1,
+                description: 1,
+            })
+            .populate('type');
         res.render('pages/sensors/index', { activePage: 'sensors', sensors });
     },
 
@@ -53,11 +55,9 @@ exports.sensorController = {
 
         let sensor = new Sensor({
             name: req.body.name,
-            typeId: sensorType.id,
-            coordinates: {
-                latitude: req.body.latitude,
-                longitude: req.body.longitude,
-            },
+            type: sensorType.id,
+            latitude: req.body.latitude,
+            longitude: req.body.longitude,
             color: req.body.color ?? 'primary',
             description: req.body.description,
         });
@@ -106,11 +106,9 @@ exports.sensorController = {
             },
             {
                 name: req.body.name,
-                typeId: req.body.type,
-                coordinates: {
-                    latitude: req.body.latitude,
-                    longitude: req.body.longitude,
-                },
+                type: req.body.type,
+                latitude: req.body.latitude,
+                longitude: req.body.longitude,
                 showLastMeasurement: !!req.body.showLastMeasurement,
                 showGraph: !!req.body.showGraph,
                 color: req.body.color ?? 'primary',
