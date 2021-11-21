@@ -13,7 +13,7 @@ module.exports = {
             showLastMeasurement: true,
             showGraph: true,
             color: 'info',
-            measuredAt: new Date(),
+            createdAt: new Date(),
         });
     },
 
