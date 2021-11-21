@@ -52,6 +52,7 @@ yarn db
     - [ ] For every user show only their sensors
     - [ ] Users can only change their settings, and can't create new users
  - [ ] Set date range for the graphs
+ - [ ] Add a*X + b formula to renderd sensor datas
  - [ ] Group and reduce data in the database query
    - [ ] Maybe MongoDB-s new time series collection can be used somehow
  - [ ] Add login error massages
