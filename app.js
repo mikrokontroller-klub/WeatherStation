@@ -20,6 +20,9 @@ app.set('layout', 'layouts/app');
 
 connectDB('weatherStation');
 
+// Api routes before the session authentication
+app.use('/api', apiRoutes);
+
 app.use(
     session({
         secret: 'secret', //TODO: Read secret from .env file
@@ -39,8 +42,6 @@ app.get('/', baseController.index);
  * General purpose application routes
  */
 app.use(routes);
-
-app.use('/api', apiRoutes);
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {

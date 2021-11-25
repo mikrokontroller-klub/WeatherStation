@@ -62,3 +62,4 @@ yarn db
  - [ ] Add pop up warning for deleting a sensor type
  - [ ] Add pop up warning for deleting a user
  - [ ] Migrate the project to TypeScript
+ - [ ] Create render middleware, and make all the routes available as an API also

@@ -6,6 +6,6 @@ const router = express.Router();
  * @description This contains API routes
  */
 
-router.put('/measurement/new', measurementController.create);
+router.put('/measurement/new', measurementController.store);
 
 exports.apiRoutes = router;

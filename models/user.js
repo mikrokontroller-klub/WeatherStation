@@ -13,6 +13,7 @@ const userSchema = mongoose.Schema({
     apiToken: {
         type: String,
         required: true,
+        unique: true, //TODO: Add unique error fallback on apiToken generation
     },
     createdAt: {
         type: Date,
