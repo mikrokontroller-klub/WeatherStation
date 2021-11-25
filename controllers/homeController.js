@@ -28,8 +28,8 @@ exports.homeController = {
                         name: sensor.type.symbol,
                     },
                     measurement: {
-                        measuredAt: moment(sensor.measurements[0] ? sensor.measurements[0].measuredAt : ''),
-                        data: sensor.measurements[0] ? sensor.measurements[0].value.toFixed(2) : '-',
+                        measuredAt: moment(sensor.measurements[sensor.measurements.length - 1] ? sensor.measurements[sensor.measurements.length - 1].measuredAt : ''),
+                        data: sensor.measurements[sensor.measurements.length - 1] ? sensor.measurements[sensor.measurements.length - 1].value.toFixed(2) : '-',
                         unitName: sensor.type.unitName,
                         unitPostfix: sensor.type.unit,
                     },
