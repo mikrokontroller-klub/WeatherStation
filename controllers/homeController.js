@@ -10,7 +10,7 @@ exports.homeController = {
     index: async (req, res) => {
         const lastMeasurements = (
             await Sensors.find({ showLastMeasurement: true })
-                .populate('type')
+                .populate('sensortype')
                 .populate('measurements', '', {
                     sort: {
                         measuredAt: -1,
@@ -19,19 +19,20 @@ exports.homeController = {
         )
             //TODO: Do this mapping in DB
             .map((sensor) => {
+                console.log(sensor);
                 return {
                     id: sensor.id,
                     name: sensor.name,
-                    type: sensor.type.name,
+                    type: sensor.sensortype.name,
                     color: sensor.color,
                     icon: {
-                        name: sensor.type.symbol,
+                        name: sensor.sensortype.symbol,
                     },
                     measurement: {
                         measuredAt: moment(sensor.measurements[sensor.measurements.length - 1] ? sensor.measurements[sensor.measurements.length - 1].measuredAt : ''),
                         data: sensor.measurements[sensor.measurements.length - 1] ? sensor.measurements[sensor.measurements.length - 1].value.toFixed(2) : '-',
-                        unitName: sensor.type.unitName,
-                        unitPostfix: sensor.type.unit,
+                        unitName: sensor.sensortype.unitName,
+                        unitPostfix: sensor.sensortype.unit,
                     },
                 };
             });
@@ -44,12 +45,12 @@ exports.homeController = {
                         measuredAt: -1,
                     },
                 })
-                .populate('type')
+                .populate('sensortype')
         ).map((sensor) => {
             return {
                 id: sensor._id,
                 name: sensor.name,
-                type: sensor.type.name,
+                type: sensor.sensortype.name,
                 color: sensor.color,
                 measurements: {
                     data: sensor.measurements.map((measurement) => {

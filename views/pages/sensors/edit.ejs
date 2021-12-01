@@ -19,7 +19,7 @@
                                 <label>Type</label>
                                 <select class="custom-select" name="type">
                                     <% sensorTypes.forEach(type => { %>
-                                        <option <%= type.id === sensor.type.id ? ' selected' : '' %> value="<%= type.id %>"><%= type.name %></option>
+                                        <option <%= type.id === sensor.sensortype.id ? ' selected' : '' %> value="<%= type.id %>"><%= type.name %></option>
                                     <% }); %>
                                 </select>
                             </div>

@@ -8,10 +8,10 @@ const sensorSchema = mongoose.Schema({
     description: {
         type: String,
     },
-    type: {
+    sensortype: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'SensorType',
+        ref: 'Sensortype',
     },
     //TODO: Maybe there's a more efficient way to store the measurement - sensor connections
     measurements: [

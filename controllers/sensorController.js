@@ -16,7 +16,7 @@ exports.sensorController = {
                 type: 1,
                 description: 1,
             })
-            .populate('type');
+            .populate('sensortype');
         sensors = sensors.map((sensor) => {
             sensor.description = cutLongText(sensor.description, 35);
             return sensor;
@@ -57,10 +57,11 @@ exports.sensorController = {
             //req.flash('error', 'Sensor type not found');
             return res.redirect('/sensors/new');
         }
+        console.log(sensorType);
 
         let sensor = new Sensor({
             name: req.body.name,
-            type: sensorType.id,
+            sensortype: sensorType.id,
             latitude: req.body.latitude,
             longitude: req.body.longitude,
             color: req.body.color ?? 'primary',
@@ -90,7 +91,7 @@ exports.sensorController = {
         try {
             let sensor = await Sensor.findOne({
                 _id: req.params.id,
-            }).populate('type');
+            }).populate('sensortype');
             let sensorTypes = await SensorType.find({}).select({
                 _id: 1,
                 name: 1,
@@ -111,7 +112,7 @@ exports.sensorController = {
             },
             {
                 name: req.body.name,
-                type: req.body.type,
+                sensortype: req.body.type,
                 latitude: req.body.latitude,
                 longitude: req.body.longitude,
                 showLastMeasurement: !!req.body.showLastMeasurement,

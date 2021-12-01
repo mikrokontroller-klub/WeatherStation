@@ -1,12 +1,13 @@
 module.exports = {
     async up(db, client) {
-        const type = await db.collection('sensor-types').findOne({ name: 'Temperature' });
+        const type = await db.collection('sensortypes').findOne({ name: 'Temperature' });
         const measurements = await db.collection('measurements').find({}).toArray();
+        console.log(type);
 
         await db.collection('sensors').insertOne({
             name: 'My First Sensor',
             description: 'This is my first sensor',
-            type: type._id,
+            sensortype: type._id,
             measurements: measurements.map((m) => m._id),
             latitude: -23.564,
             longitude: -46.632,
