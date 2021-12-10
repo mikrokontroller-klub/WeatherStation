@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 const { baseController } = require('./controllers/baseController');
 const app = express();
 const connectDB = require('./utils/connectDB');
+const { handleError } = require('./utils/error');
 app.use(bodyParser());
 app.use(methodOverride('_method'));
 app.use(expressValidator());
@@ -42,6 +43,10 @@ app.get('/', baseController.index);
  * General purpose application routes
  */
 app.use(routes);
+
+app.use((err, req, res, next) => {
+    handleError(err, res);
+});
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {

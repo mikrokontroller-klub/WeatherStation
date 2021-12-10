@@ -8,34 +8,32 @@ const Sensors = require('../models/sensor');
 exports.homeController = {
     /** Display a listing of the resource. */
     index: async (req, res) => {
-        const lastMeasurements = (
-            await Sensors.find({ showLastMeasurement: true })
-                .populate('sensortype')
-                .populate('measurements', '', {
-                    sort: {
-                        measuredAt: -1,
-                    },
-                })
-        )
-            //TODO: Do this mapping in DB
-            .map((sensor) => {
-                console.log(sensor);
-                return {
-                    id: sensor.id,
-                    name: sensor.name,
-                    type: sensor.sensortype.name,
-                    color: sensor.color,
-                    icon: {
-                        name: sensor.sensortype.symbol,
-                    },
-                    measurement: {
-                        measuredAt: moment(sensor.measurements[sensor.measurements.length - 1] ? sensor.measurements[sensor.measurements.length - 1].measuredAt : ''),
-                        data: sensor.measurements[sensor.measurements.length - 1] ? sensor.measurements[sensor.measurements.length - 1].value.toFixed(2) : '-',
-                        unitName: sensor.sensortype.unitName,
-                        unitPostfix: sensor.sensortype.unit,
-                    },
-                };
+        let lastMeasurements = await Sensors.find({ showLastMeasurement: true })
+            .populate('sensortype')
+            .populate('measurements', '', {
+                sort: {
+                    measuredAt: -1,
+                },
             });
+
+        //TODO: Do this mapping in DB
+        lastMeasurements = lastMeasurements.map((sensor) => {
+            return {
+                id: sensor.id,
+                name: sensor.name,
+                type: sensor.sensortype.name,
+                color: sensor.color,
+                icon: {
+                    name: sensor.sensortype.symbol,
+                },
+                measurement: {
+                    measuredAt: moment(sensor.measurements[sensor.measurements.length - 1] ? sensor.measurements[sensor.measurements.length - 1].measuredAt : ''),
+                    data: sensor.measurements[sensor.measurements.length - 1] ? sensor.measurements[sensor.measurements.length - 1].value.toFixed(2) : '-',
+                    unitName: sensor.sensortype.unitName,
+                    unitPostfix: sensor.sensortype.unit,
+                },
+            };
+        });
 
         //TODO: Add time limits to the query
         const graphData = (

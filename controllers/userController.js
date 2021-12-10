@@ -2,6 +2,7 @@ const Users = require('../models/user');
 const generateApiToken = require('../utils/generateApiToken');
 const bcrypt = require('bcrypt');
 const chalk = require('chalk');
+const { ErrorHandler } = require('../utils/error');
 
 /**
  * @description Resourceful controller for the users
@@ -19,15 +20,19 @@ exports.userController = {
     },
 
     /** Store a newly created resource in storage. */
-    store: async (req, res) => {
+    store: async (req, res, next) => {
         if (req.body.username && req.body.password) {
-            let user = new Users({
-                username: req.body.username,
-                password: await bcrypt.hash(req.body.password, 10),
-                apiToken: generateApiToken(),
-            });
-            await user.save();
-            res.redirect('/users');
+            try {
+                let user = new Users({
+                    username: req.body.username,
+                    password: await bcrypt.hash(req.body.password, 10),
+                    apiToken: generateApiToken(),
+                });
+                await user.save();
+                res.redirect('/users');
+            } catch (e) {
+                next(new ErrorHandler(500, 'Error saving user'));
+            }
         } else {
             console.log(chalk.yellow('[Create User]:'), ' Missing username or password');
             res.redirect('/users/new');
@@ -35,24 +40,31 @@ exports.userController = {
     },
 
     /** Display the specified resource. */
-    show: async (req, res) => {
-        let user = await Users.findOne({
-            _id: req.params.id,
-        }).select('-password');
-        res.render('pages/users/view', { activePage: 'users', user });
+    show: async (req, res, next) => {
+        try {
+            let user = await Users.findOne({
+                _id: req.params.id,
+            }).select('-password');
+            res.render('pages/users/view', { activePage: 'users', user });
+        } catch (e) {
+            next(new ErrorHandler(404, `Can't find user with id ${req.params.id}`));
+        }
     },
 
     /** Show the form for editing the specified resource. */
-    edit: async (req, res) => {
-        let user = await Users.findOne({
-            _id: req.params.id,
-        }).select('-password');
-        res.render('pages/users/edit', { activePage: 'users', user });
+    edit: async (req, res, next) => {
+        try {
+            let user = await Users.findOne({
+                _id: req.params.id,
+            }).select('-password');
+            res.render('pages/users/edit', { activePage: 'users', user });
+        } catch (e) {
+            next(new ErrorHandler(404, `Can't find user with id ${req.params.id}`));
+        }
     },
 
     /** Update the specified resource in storage. */
     update: async (req, res) => {
-        //TODO: Update sensor in DB
         if (req.body.username && req.body.password) {
             try {
                 await Users.findByIdAndUpdate(req.params.id, {

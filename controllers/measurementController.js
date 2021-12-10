@@ -68,6 +68,7 @@ exports.measurementController = {
 
         return res.status(200).json({
             message: 'Measurement saved successfully',
+            serverTime: new Date(),
         });
     },
 

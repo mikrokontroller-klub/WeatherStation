@@ -1,5 +1,6 @@
 const SensorType = require('../models/sensor-type');
 const chalk = require('chalk');
+const { ErrorHandler } = require('../utils/error');
 
 /**
  * @description Controller for managing Sensor Types, like temperature, humidity, etc.
@@ -40,9 +41,13 @@ exports.sensorTypeController = {
     },
 
     /** Show the form for editing the specified resource. */
-    edit: async (req, res) => {
-        let type = await SensorType.findById(req.params.id);
-        res.render('pages/sensor-types/edit', { activePage: 'sensor-types', type });
+    edit: async (req, res, next) => {
+        try {
+            let type = await SensorType.findById(req.params.id);
+            res.render('pages/sensor-types/edit', { activePage: 'sensor-types', type });
+        } catch (e) {
+            next(new ErrorHandler(404, `Sensor Type not found with id: ${req.params.id}`));
+        }
     },
 
     /** Update the specified resource in storage. */
