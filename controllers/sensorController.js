@@ -54,8 +54,9 @@ exports.sensorController = {
 
         //Get typeId from DB
         try {
+            let sensorType;
             try {
-                let sensorType = await SensorType.findById(req.body.type);
+                sensorType = await SensorType.findById(req.body.type);
                 //Validate sensorType
                 if (!sensorType) {
                     //req.flash('error', 'Sensor type not found');
@@ -77,6 +78,7 @@ exports.sensorController = {
                 await sensor.save();
                 res.redirect('/sensors');
             } catch (e) {
+                console.log(e);
                 throw new ErrorHandler(500, "Can't create sensor");
             }
         } catch (e) {

@@ -2,6 +2,7 @@ const path = require('path');
 const chalk = require('chalk');
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
+const { ErrorHandler } = require('../utils/error');
 
 exports.loginController = {
     /** Display a listing of the resource. */
@@ -10,7 +11,7 @@ exports.loginController = {
         res.sendFile(path.join(__dirname, '../views/login.html'));
     },
     /** Handle login logic */
-    login: async (req, res) => {
+    login: async (req, res, next) => {
         const username = req.body.username;
         const password = req.body.password;
         if (username && password) {
@@ -22,23 +23,25 @@ exports.loginController = {
                 req.session.username = username;
                 console.log(chalk.green('[Authenticated]: '), username);
                 res.redirect('/home');
+                next(req, res);
             } else {
                 console.log(chalk.red('[Auth failed]: '), username);
                 req.session.returnTo = req.originalUrl;
                 //TODO: Add data to redirect why the login failed
-                res.redirect('/login');
+                //res.redirect('/login');
+                next(new ErrorHandler(401, 'Invalid username or password'));
             }
             res.end();
         } else {
-            console.log('Username or Password not provided for auth');
             req.session.returnTo = req.originalUrl;
+            next(new ErrorHandler(400, 'Username and password are required'));
             //TODO: Add data to redirect why the login failed
-            res.redirect('/login');
+            //res.redirect('/login');
         }
     },
     /** Handle logout logic */
-    logout: async (req, res) => {
-        if (req.session) {
+    logout: async (req, res, next) => {
+        if (req.session && req.session.loggedin) {
             console.log(chalk.green('[Logged out]: '), req.session.username);
             req.session.destroy((err) => {
                 if (err) {
@@ -49,8 +52,10 @@ exports.loginController = {
                     res.redirect('/login');
                 }
             });
+            req.session = undefined;
         } else {
             res.end();
         }
+        next(req, res);
     },
 };

@@ -7,9 +7,11 @@ class ErrorHandler extends Error {
 }
 
 const handleError = (err, res) => {
-    const { statusCode, message } = err;
-    //TODO: Render error page
-    res.status(statusCode ?? 500).send(message ?? err);
+    if (err instanceof Error) {
+        const { statusCode, message } = err;
+        //TODO: Render error page
+        res.status(statusCode ?? 500).send(message ?? err);
+    }
 };
 
 module.exports = {
