@@ -44,7 +44,7 @@ yarn db
 
 # TODO List
 
- - [ ] Create /api endpoint for the measurements to save the measurements
+ - [X] Create /api endpoint for the measurements to save the measurements
  - [ ] Create admin and regular user accounts
     - [ ] Admin account should have access to all features
       - API Token generation only can be accessed by the admin
